@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="relative z-10 flex flex-col">
       {/* 히어로 섹션 */}
-      <section className="mx-auto flex w-full max-w-5xl flex-col items-center gap-16 px-6 py-24 md:flex-row md:items-center md:py-32">
+      <section className="mx-auto flex w-full max-w-5xl flex-col items-center gap-20 px-8 py-28 md:flex-row md:items-center md:py-36">
         {/* 텍스트 영역 */}
         <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left">
           <h1 className="animate-fade-up font-serif text-4xl font-semibold leading-snug tracking-tight text-ink sm:text-5xl md:text-6xl">
@@ -43,20 +43,16 @@ export default function Home() {
         </div>
 
         {/* 이미지 영역 */}
-        <div className="animate-fade-up delay-200 relative w-full max-w-sm flex-shrink-0 md:w-96">
+        <div className="animate-fade-up delay-200 w-full max-w-md flex-shrink-0 md:w-[420px]">
           <div className="overflow-hidden rounded-card shadow-card">
             <Image
-              src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=80"
+              src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&q=85"
               alt="따뜻한 조명 아래 놓인 책 더미"
-              width={800}
-              height={600}
-              className="h-72 w-full object-cover md:h-96"
+              width={900}
+              height={680}
+              className="h-80 w-full object-cover md:h-[440px]"
               priority
             />
-          </div>
-          {/* 플로팅 태그 */}
-          <div className="animate-fade-up delay-500 absolute -bottom-4 -left-4 rounded-card bg-paper px-5 py-3 shadow-card">
-            <p className="font-serif text-sm text-book-green">📖 오늘도 책 한 권이 건네집니다.</p>
           </div>
         </div>
       </section>

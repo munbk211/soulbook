@@ -16,28 +16,58 @@
 }
 
 :root {
-  --background: #FDFBF7;
+  --background: #F8F4EC;
   --foreground: #1C1C1C;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
+  /* 낡은 종이 질감: 가로 섬유 결 + 얼룩 그라디언트 */
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent,
+      transparent 3px,
+      rgba(160, 120, 60, 0.018) 3px,
+      rgba(160, 120, 60, 0.018) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(180, 140, 80, 0.008) 60px,
+      rgba(180, 140, 80, 0.008) 61px
+    );
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
   line-height: 1.75;
 }
 
-/* 종이 질감 노이즈 레이어 */
+/* 노이즈 그레인 레이어 — 불투명도를 높여 실제로 보이게 */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23grain)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 200px 200px;
+  background-size: 180px 180px;
+}
+
+/* 종이 끝 번짐 — 가장자리 살짝 어둡게 */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(120, 90, 40, 0.06) 100%
+  );
 }
 
 h1, h2, h3 {
