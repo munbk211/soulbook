@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
+import { BookProvider } from "./context/BookContext";
 
 const notoSans = Noto_Sans_KR({
   variable: "--font-noto-sans",
@@ -28,8 +29,10 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${notoSans.variable} ${notoSerif.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream">
-        <Header />
-        <main className="flex-1">{children}</main>
+        <BookProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+        </BookProvider>
       </body>
     </html>
   );

@@ -1,15 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useBooks } from "../context/BookContext";
 
-type SubmitState = "idle" | "success" | "error";
+const FALLBACK_COVER =
+  "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80";
 
 export default function GivePage() {
+  const router = useRouter();
+  const { addBook } = useBooks();
+
   const [images, setImages] = useState<{ url: string; name: string }[]>([]);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [story, setStory] = useState("");
-  const [submitState, setSubmitState] = useState<SubmitState>("idle");
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -30,28 +35,13 @@ export default function GivePage() {
       alert("소울북 제목을 입력해주세요.");
       return;
     }
-    const payload = { title, price: Number(price), story, imageCount: images.length };
-    console.log("[소울북 건네주기]", payload);
-    setSubmitState("success");
-  }
-
-  if (submitState === "success") {
-    return (
-      <div className="relative z-10 flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
-        <p className="text-4xl">📬</p>
-        <h2 className="mt-6 font-serif text-2xl font-semibold text-ink">소울북이 건네졌어요.</h2>
-        <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone">
-          당신의 진심이 담긴 소울북이 새친구를 기다리고 있습니다.<br />
-          수기 독서 가이드도 꼭 책 사이에 넣어주세요!
-        </p>
-        <a
-          href="/receive"
-          className="mt-8 inline-block rounded-button bg-book-green px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-soft-green"
-        >
-          소울북 상점 보러 가기
-        </a>
-      </div>
-    );
+    addBook({
+      title: title.trim(),
+      author: "나",
+      price: Number(price) || 0,
+      coverUrl: images[0]?.url ?? FALLBACK_COVER,
+    });
+    router.push("/receive");
   }
 
   const inputClass =

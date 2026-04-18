@@ -2,30 +2,15 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useBooks } from "../context/BookContext";
 
 type SortKey = "latest" | "price";
 
-const BOOKS = [
-  { id: 1,  title: "아몬드",              author: "손원평",        price: 4800, coverUrl: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&q=80", date: "2026-04-18" },
-  { id: 2,  title: "채식주의자",           author: "한강",          price: 5500, coverUrl: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&q=80", date: "2026-04-17" },
-  { id: 3,  title: "82년생 김지영",        author: "조남주",        price: 3900, coverUrl: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&q=80", date: "2026-04-17" },
-  { id: 4,  title: "해변의 카프카",        author: "무라카미 하루키", price: 6200, coverUrl: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80", date: "2026-04-16" },
-  { id: 5,  title: "데미안",              author: "헤르만 헤세",    price: 3200, coverUrl: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=400&q=80", date: "2026-04-16" },
-  { id: 6,  title: "어린 왕자",           author: "생텍쥐페리",     price: 2800, coverUrl: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?w=400&q=80", date: "2026-04-15" },
-  { id: 7,  title: "나미야 잡화점의 기적", author: "히가시노 게이고", price: 5000, coverUrl: "https://images.unsplash.com/photo-1592496431122-2349e0fbc666?w=400&q=80", date: "2026-04-15" },
-  { id: 8,  title: "파친코",              author: "이민진",         price: 7500, coverUrl: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&q=80", date: "2026-04-14" },
-  { id: 9,  title: "완전한 행복",          author: "정유정",         price: 4200, coverUrl: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=400&q=80", date: "2026-04-14" },
-  { id: 10, title: "불편한 편의점",        author: "김호연",         price: 3800, coverUrl: "https://images.unsplash.com/photo-1629992101753-56d196c8aabb?w=400&q=80", date: "2026-04-13" },
-  { id: 11, title: "작별인사",             author: "김영하",         price: 4500, coverUrl: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&q=80", date: "2026-04-13" },
-  { id: 12, title: "흰",                  author: "한강",           price: 3600, coverUrl: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&q=80", date: "2026-04-12" },
-  { id: 13, title: "구의 증명",            author: "최진영",         price: 4100, coverUrl: "https://images.unsplash.com/photo-1550399105-c4db5fb85c18?w=400&q=80", date: "2026-04-12" },
-  { id: 14, title: "달러구트 꿈 백화점",   author: "이미예",         price: 5200, coverUrl: "https://images.unsplash.com/photo-1476275466078-4007374efbbe?w=400&q=80", date: "2026-04-11" },
-  { id: 15, title: "소년이 온다",          author: "한강",           price: 4900, coverUrl: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&q=80", date: "2026-04-11" },
-];
+import type { Book } from "../context/BookContext";
 
-const PAGE_SIZE = 10; // 2행 × 5열
+const PAGE_SIZE = 5; // 한 번에 한 선반(5권)씩 추가
 
-function BookItem({ book }: { book: typeof BOOKS[0] }) {
+function BookItem({ book }: { book: Book }) {
   return (
     <a
       href={`/receive/${book.id}`}
@@ -171,7 +156,7 @@ function WoodenShelf() {
   );
 }
 
-function ShelfRow({ books }: { books: typeof BOOKS }) {
+function ShelfRow({ books }: { books: Book[] }) {
   return (
     <div className="mb-14">
       {/* 책들: grid-cols-5로 균등 배치, 선반과 동일 너비 */}
@@ -191,16 +176,17 @@ function ShelfRow({ books }: { books: typeof BOOKS }) {
 }
 
 export default function ReceivePage() {
+  const { books } = useBooks();
   const [sort, setSort] = useState<SortKey>("latest");
-  const [visible, setVisible] = useState(PAGE_SIZE);
+  const [visible, setVisible] = useState(PAGE_SIZE * 2); // 초기 2선반(10권)
 
-  const sorted = [...BOOKS].sort((a, b) =>
+  const sorted = [...books].sort((a, b) =>
     sort === "price" ? a.price - b.price : b.date.localeCompare(a.date)
   );
 
   const visibleBooks = sorted.slice(0, visible);
 
-  const shelves: (typeof BOOKS)[] = [];
+  const shelves: Book[][] = [];
   for (let i = 0; i < visibleBooks.length; i += 5) {
     shelves.push(visibleBooks.slice(i, i + 5));
   }
@@ -223,7 +209,7 @@ export default function ReceivePage() {
         {(["latest", "price"] as SortKey[]).map((key) => (
           <button
             key={key}
-            onClick={() => { setSort(key); setVisible(PAGE_SIZE); }}
+            onClick={() => { setSort(key); setVisible(PAGE_SIZE * 2); }}
             className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
               sort === key
                 ? "border-book-green bg-book-green text-white"
@@ -248,7 +234,7 @@ export default function ReceivePage() {
       {hasMore && (
         <div className="mx-auto mt-2 max-w-6xl text-center animate-fade-up">
           <button
-            onClick={() => setVisible((v) => v + PAGE_SIZE)}
+            onClick={() => setVisible((v) => v + PAGE_SIZE)  /* 선반 1개(5권) 추가 */}
             className="rounded-button border border-book-green bg-cream px-8 py-3 font-serif text-sm text-book-green transition-colors hover:bg-book-green hover:text-white"
           >
             더 많은 소울북 보기
