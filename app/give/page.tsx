@@ -15,6 +15,7 @@ export default function GivePage() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [story, setStory] = useState("");
+  const [done, setDone] = useState(false);
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
@@ -44,7 +45,38 @@ export default function GivePage() {
       price: Number(price) || 0,
       coverUrl: images[0]?.url ?? FALLBACK_COVER,
     });
-    router.push("/receive");
+    setDone(true);
+  }
+
+  if (done) {
+    return (
+      <div className="relative z-10 flex min-h-[70vh] flex-col items-center justify-center px-6 text-center">
+        <div className="animate-fade-up rounded-card border border-linen bg-paper px-10 py-12 shadow-card max-w-sm w-full">
+          <p className="text-5xl">📬</p>
+          <h2 className="mt-6 font-serif text-2xl font-semibold text-ink">
+            소울북이 건네졌어요.
+          </h2>
+          <p className="mt-4 text-sm leading-relaxed text-stone">
+            당신의 진심이 담긴 소울북이<br />새친구를 기다리고 있습니다.
+          </p>
+          <p className="mt-2 text-xs text-stone/70">
+            수기 독서 가이드도 꼭 책 사이에 넣어주세요 ✉️
+          </p>
+          <button
+            onClick={() => router.push("/receive")}
+            className="mt-8 w-full rounded-button bg-book-green py-3.5 text-sm font-medium text-white transition-colors hover:bg-soft-green"
+          >
+            소울북 상점 둘러보기
+          </button>
+          <button
+            onClick={() => { setDone(false); setTitle(""); setPrice(""); setStory(""); setImages([]); }}
+            className="mt-3 w-full rounded-button border border-linen py-3 text-sm text-stone transition-colors hover:border-book-green hover:text-book-green"
+          >
+            또 다른 소울북 건네주기
+          </button>
+        </div>
+      </div>
+    );
   }
 
   const inputClass =
