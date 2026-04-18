@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useRef, ReactNode } from "react";
 
 const STORAGE_KEY = "soulbook_books";
 
@@ -41,16 +41,20 @@ type BookContextValue = {
 const BookContext = createContext<BookContextValue | null>(null);
 
 export function BookProvider({ children }: { children: ReactNode }) {
-  const [books, setBooks] = useState<Book[]>(() => {
-    if (typeof window === "undefined") return INITIAL_BOOKS;
+  const [books, setBooks] = useState<Book[]>(INITIAL_BOOKS);
+
+  // 마운트 후 localStorage에서 복원 (SSR hydration 이후에만 실행)
+  useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) return JSON.parse(saved) as Book[];
+      if (saved) setBooks(JSON.parse(saved) as Book[]);
     } catch {}
-    return INITIAL_BOOKS;
-  });
+  }, []);
 
+  // books 변경 시 저장 (초기 마운트는 제외)
+  const isFirstRender = useRef(true);
   useEffect(() => {
+    if (isFirstRender.current) { isFirstRender.current = false; return; }
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
     } catch {}
