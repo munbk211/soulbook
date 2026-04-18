@@ -28,8 +28,8 @@ export default function Home() {
       <section className="mx-auto flex w-full max-w-5xl flex-col items-center gap-20 px-8 py-28 md:flex-row md:items-center md:py-36">
         {/* 텍스트 영역 */}
         <div className="flex flex-1 flex-col items-center text-center md:items-start md:text-left">
-          <h1 className="animate-fade-up font-serif text-4xl font-semibold leading-snug tracking-tight text-ink sm:text-5xl md:text-6xl">
-            이 책,<br />당신이<br />읽어줬으면 해서요.
+          <h1 className="animate-fade-up font-serif text-4xl font-semibold leading-snug tracking-tight text-ink sm:text-5xl md:text-[3.2rem]">
+            이 책, 당신이<br className="hidden sm:block" />읽어줬으면 해서요.
           </h1>
           <p className="animate-fade-up delay-200 mt-8 max-w-sm text-base leading-relaxed text-stone sm:text-lg">
             옛친구의 진심이 담긴 소울북을 건네받아보세요.
