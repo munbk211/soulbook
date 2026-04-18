@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { useBooks } from "../context/BookContext";
 import type { Book } from "../context/BookContext";
@@ -39,12 +38,11 @@ function BookItem({ book }: { book: Book }) {
                 "-4px 4px 10px rgba(0,0,0,0.22), 2px 0 6px rgba(0,0,0,0.08), inset -2px 0 5px rgba(0,0,0,0.06)",
             }}
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={book.coverUrl}
               alt={book.title}
-              fill
-              className="object-cover"
-              sizes="88px"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
             {/* 광택 */}
             <div

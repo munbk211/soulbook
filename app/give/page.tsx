@@ -18,16 +18,19 @@ export default function GivePage() {
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []);
-    const next = files.map((f) => ({ url: URL.createObjectURL(f), name: f.name }));
-    setImages((prev) => [...prev, ...next].slice(0, 5));
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const dataUrl = ev.target?.result as string;
+        setImages((prev) => [...prev, { url: dataUrl, name: file.name }].slice(0, 5));
+      };
+      reader.readAsDataURL(file);
+    });
     e.target.value = "";
   }
 
   function removeImage(index: number) {
-    setImages((prev) => {
-      URL.revokeObjectURL(prev[index].url);
-      return prev.filter((_, i) => i !== index);
-    });
+    setImages((prev) => prev.filter((_, i) => i !== index));
   }
 
   function handleSubmit() {
@@ -39,7 +42,7 @@ export default function GivePage() {
       title: title.trim(),
       author: "나",
       price: Number(price) || 0,
-      coverUrl: FALLBACK_COVER, // Supabase 연결 전: 로컬 blob URL은 Next.js Image 불가
+      coverUrl: images[0]?.url ?? FALLBACK_COVER,
     });
     router.push("/receive");
   }
@@ -144,7 +147,7 @@ export default function GivePage() {
               placeholder="0"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              className={inputClass + " pr-10"}
+              className={inputClass + " pr-10 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"}
             />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-stone">원</span>
           </div>
