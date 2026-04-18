@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 소울북 (Soulbook)
+### *이 책, 당신이 읽어줬으면 해서요.*
 
-## Getting Started
+---
 
-First, run the development server:
+> 어떤 책은 읽고 나면 그냥 책장에 꽂아두기가 아깝습니다.  
+> 누군가에게 꼭 건네고 싶어집니다.  
+> 소울북은 그 마음을 함께 전달합니다.
+
+---
+
+## 소울북이란?
+
+소울북은 단순한 중고책 거래 플랫폼이 아닙니다.
+
+책을 건네는 사람이 직접 써 내려간 **독서 가이드**와 **진심 어린 소감**이 함께 전달되는,  
+**감성 중고책 건네기 서비스**입니다.
+
+당신이 밑줄 그었던 문장, 읽으면서 떠올랐던 사람, 이 책을 가장 읽어줬으면 하는 계절 —  
+그 모든 마음이 책 한 권에 담겨 다음 독자에게 이어집니다.
+
+---
+
+## 핵심 기능
+
+### 📖 건네주기
+책 사진과 함께 5가지 독서 가이드를 직접 작성하여 소울북 카드를 등록합니다.  
+어떤 마음으로 읽었는지, 어떤 사람에게 닿았으면 하는지를 담아주세요.
+
+### 🌿 건네받기
+피드에서 다른 분들이 올린 소울북 카드를 구경하며,  
+마음에 닿는 책을 발견하는 시간을 가져보세요.
+
+### 💬 책 대화
+건네주고 싶은 책을 발견했다면, 1:1 채팅으로 조용히 말을 건네세요.  
+책을 매개로 시작되는 대화는 언제나 조금 더 따뜻합니다.
+
+### 🤝 책 인연 후기
+거래가 완료된 후, 서로에게 따뜻한 소감을 남깁니다.  
+한 권의 책이 맺어준 인연을 기억하는 방법입니다.
+
+---
+
+## 기술 스택
+
+| 영역 | 기술 |
+|------|------|
+| 프론트엔드 | [Next.js](https://nextjs.org) · [TypeScript](https://www.typescriptlang.org) |
+| 스타일링 | [Tailwind CSS](https://tailwindcss.com) |
+| 백엔드 / DB | [Supabase](https://supabase.com) |
+
+---
+
+## 로컬 실행 방법
 
 ```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000) 을 열어 확인하세요.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 시작하며
 
-## Learn More
+소울북은 책을 사랑하는 사람들을 위해 만들어졌습니다.  
+읽고 나서 혼자 간직하기엔 너무 좋았던 책,  
+누군가에게 꼭 읽히고 싶었던 책,  
+그 마음들이 이 서비스를 통해 조용히, 그러나 따뜻하게 이어지길 바랍니다.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*— Soulbook Team*
