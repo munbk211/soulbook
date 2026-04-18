@@ -162,15 +162,11 @@ export default function GivePage() {
 
         <hr className="border-[#E4DDD2]" />
 
-        {/* 당신의 소울북을 소개해주세요 */}
+        {/* 이 소울북은 나에게 어떤 의미였나요? */}
         <section>
-          <label className="mb-1 block font-serif text-base font-semibold text-ink" htmlFor="story">
-            당신의 소울북을 소개해주세요
+          <label className="mb-4 block font-serif text-xl font-semibold leading-snug text-ink sm:text-2xl" htmlFor="story">
+            이 소울북은 나에게<br />어떤 의미였나요?
           </label>
-          <p className="mb-3 text-xs leading-relaxed text-stone">
-            위 가이드 질문에 대한 답변을 자유롭게 적어주세요.
-            이 글이 새친구에게 전달되는 당신만의 독서 가이드가 됩니다.
-          </p>
           <textarea
             id="story"
             rows={8}
