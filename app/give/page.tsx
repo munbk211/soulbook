@@ -44,6 +44,7 @@ export default function GivePage() {
       author: "나",
       price: Number(price) || 0,
       coverUrl: images[0]?.url ?? FALLBACK_COVER,
+      story: story.trim() || undefined,
     });
     setDone(true);
   }
