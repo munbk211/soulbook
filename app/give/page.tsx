@@ -62,8 +62,8 @@ export default function GivePage() {
 
       {/* ── Hero Section ── */}
       <div className="mb-10 rounded-card border border-[#E4DDD2] bg-paper px-8 py-8 shadow-card">
-        <h1 className="font-serif text-2xl font-semibold leading-snug text-ink sm:text-3xl">
-          당신의 마음을<br />함께 건네주세요.
+        <h1 className="font-serif text-3xl font-semibold leading-snug text-ink sm:text-4xl">
+          소울북을 보내는 마음
         </h1>
         <div className="mt-5 rounded-input border border-[#E4DDD2] bg-cream px-5 py-4">
           <p className="text-[10px] font-medium uppercase tracking-widest text-book-green">
