@@ -164,8 +164,8 @@ export default function GivePage() {
 
         {/* 이 소울북은 나에게 어떤 의미였나요? */}
         <section>
-          <label className="mb-4 block font-serif text-xl font-semibold leading-snug text-ink sm:text-2xl" htmlFor="story">
-            이 소울북은 나에게<br />어떤 의미였나요?
+          <label className="mb-3 block font-serif text-xl font-semibold leading-snug tracking-tight text-ink sm:text-2xl" htmlFor="story">
+            내 소울북을 소개합니다
           </label>
           <textarea
             id="story"
