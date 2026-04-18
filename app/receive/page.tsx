@@ -3,10 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useBooks } from "../context/BookContext";
+import type { Book } from "../context/BookContext";
 
 type SortKey = "latest" | "price";
-
-import type { Book } from "../context/BookContext";
 
 const PAGE_SIZE = 5; // 한 번에 한 선반(5권)씩 추가
 

@@ -39,7 +39,7 @@ export default function GivePage() {
       title: title.trim(),
       author: "나",
       price: Number(price) || 0,
-      coverUrl: images[0]?.url ?? FALLBACK_COVER,
+      coverUrl: FALLBACK_COVER, // Supabase 연결 전: 로컬 blob URL은 Next.js Image 불가
     });
     router.push("/receive");
   }
