@@ -1,6 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+
+const STORAGE_KEY = "soulbook_books";
 
 export type Book = {
   id: number;
@@ -37,7 +39,20 @@ type BookContextValue = {
 const BookContext = createContext<BookContextValue | null>(null);
 
 export function BookProvider({ children }: { children: ReactNode }) {
-  const [books, setBooks] = useState<Book[]>(INITIAL_BOOKS);
+  const [books, setBooks] = useState<Book[]>(() => {
+    if (typeof window === "undefined") return INITIAL_BOOKS;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) return JSON.parse(saved) as Book[];
+    } catch {}
+    return INITIAL_BOOKS;
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(books));
+    } catch {}
+  }, [books]);
 
   function addBook(data: Omit<Book, "id" | "date">) {
     const newBook: Book = {
