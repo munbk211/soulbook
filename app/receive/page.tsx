@@ -159,12 +159,12 @@ function WoodenShelf() {
           <path d="M0 15 Q100 11 200 15 Q300 19 400 14 Q500 9 600 14 Q700 19 800 14" stroke="rgba(0,0,0,0.3)" strokeWidth="1" fill="none" />
         </svg>
       </div>
-      {/* 선반 하단 그림자 */}
+      {/* 선반 하단 그림자 — 더 깊고 선명하게 */}
       <div
         style={{
-          height: "14px",
+          height: "22px",
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.06) 60%, transparent 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.14) 50%, rgba(0,0,0,0.04) 80%, transparent 100%)",
         }}
       />
     </div>
@@ -173,11 +173,14 @@ function WoodenShelf() {
 
 function ShelfRow({ books }: { books: typeof BOOKS }) {
   return (
-    <div className="mb-12">
-      {/* 책들 */}
-      <div className="flex items-end gap-5 px-4 sm:gap-7 sm:px-8 overflow-x-auto pb-0">
+    <div className="mb-14">
+      {/* 책들: grid-cols-5로 균등 배치, 선반과 동일 너비 */}
+      <div
+        className="grid items-end pb-2"
+        style={{ gridTemplateColumns: "repeat(5, 1fr)", gap: "0" }}
+      >
         {books.map((book) => (
-          <div key={book.id} className="flex-shrink-0">
+          <div key={book.id} className="flex justify-center">
             <BookItem book={book} />
           </div>
         ))}
@@ -211,7 +214,7 @@ export default function ReceivePage() {
       <div className="mx-auto mb-10 max-w-6xl animate-fade-up">
         <h1 className="font-serif text-3xl font-semibold text-ink sm:text-4xl">소울북 상점</h1>
         <p className="mt-2 text-sm text-stone">
-          따뜻한 조명이 켜진 서재에서 오늘의 소울북을 만나보세요.
+          친구들이 보내는 소울북을 둘러보세요.
         </p>
       </div>
 
@@ -232,10 +235,12 @@ export default function ReceivePage() {
         ))}
       </div>
 
-      {/* 책장 */}
-      <div className="animate-fade-up delay-200 mx-auto max-w-6xl">
+      {/* 책장 — 선반이 full width로 뻗도록 패딩 없는 래퍼 사용 */}
+      <div className="animate-fade-up delay-200">
         {shelves.map((row, i) => (
-          <ShelfRow key={i} books={row} />
+          <div key={i} className="mx-auto max-w-6xl">
+            <ShelfRow books={row} />
+          </div>
         ))}
       </div>
 
